@@ -1,0 +1,39 @@
+# Hugo build output
+/public/
+/resources/
+/themes/imprint-theme/content/
+
+# Hugo cache
+hugo_stats.json
+
+# OS-specific files
+.DS_Store
+
+# Node.js dependencies (if you use npm for JS/CSS tooling)
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VS Code settings (optional)
+.vscode/
+
+# Environment files (if you ever use secrets or Netlify settings)
+.env
+.env.*
+
+# Netlify deploy folders (if using Netlify CLI)
+.netlify/
+
+# Temporary or backup files
+*.swp
+*.bak
+*.tmp
+
+# Ignore generated thumbnail/previews
+*.thumb.*

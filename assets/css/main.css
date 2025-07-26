@@ -4,46 +4,127 @@ html {
 
 body {
   margin: 0;
-  background: none;
 }
 
-body, h1, h2, h3, p {
+body, h1, h2, h3 {
   font-family: 'Goldman', cursive, sans-serif;
   text-align: center;
+  color: white;
+}
+
+p {
+  font-family: sans-serif;
+  line-height: 1.7rem;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+main {
+  display: grid;
+  grid-template-rows: auto minmax(100vh, auto) auto auto; /* header, hero, main content, footer */
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: 'header header header'
+                       'hero hero hero' 
+                       '. content .' 
+                       'footer footer footer';
+  position: relative;
+  overflow: hidden;
 }
 
 header {
-  opacity: 0;
+  grid-area: header;
   position: fixed;
+  box-sizing: border-box;
   top: 0;
+  left: 0;
   width: 100%;
   z-index: 10;
+  opacity: 0;
   transition: opacity 0.5s ease;
+  display: flex;             /* use flex for better control */
+  align-items: center;
+  justify-content: space-between; /* site title left, nav right */
+  padding: 1rem 2rem;
+  background: #192847;
 }
 
 header.visible {
   opacity: 1;
 }
 
+header .site-title {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, orange, pink);
+  text-shadow: 2px 2px 0px #F2A06320, 4px 4px 0px #F2A06320;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  background-clip: text;
+  color: transparent;
+
+  font-weight: 900;
+  margin: 0;
+  cursor: default;
+  user-select: none;
+
+}
+
 nav {
-  background-color: blue;
   display: flex;
-  flex-direction: row;
+  gap: 2rem;          /* space between links */
+  margin: 0;
+  padding: 0;
+}
+
+nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 2rem;
 }
 
 nav li {
-  list-style: none;
-  background-color: white;
-  padding: 5px;
-  margin: 5px;
+  /* no background */
+  padding: 0;
+  margin: 0;
+}
+
+nav a {
+  color: white;        /* link colour */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+  color: orange;       /* highlight on hover or active */
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-title {
     display: inline-block;
     font-size: 5rem;
-    background: linear-gradient(90deg, orange, pink); /* example gradient colours */
+    margin-bottom: 0;
+    background: linear-gradient(90deg, orange, pink);
+    text-shadow: 3px 3px 0px #F2A06320, 6px 6px 0px #F2A06320;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+    animation: fadeSlideUp 1s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
 
   /* For Firefox */
   background-clip: text;
@@ -53,9 +134,32 @@ nav li {
   font-weight: 900;
 }
 
+h2.hero-tag { 
+  background: linear-gradient(90deg, orange, pink);
+  padding-bottom: 1em;
+  text-shadow: 2px 2px 0px #F2A06320, 4px 4px 0px #F2A06320;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+   animation: fadeSlideUp 1s ease-out forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+
+  /* For Firefox */
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title,
+  .hero-tag {
+    animation: fadeSlideUp 1s ease-out forwards;
+  }
+}
+
 .hero {
+  grid-area: hero;
   position: relative;
-  height: 100vh;
+  height: 150vh;
   overflow: hidden;
 }
 
@@ -75,7 +179,7 @@ nav li {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -62%);
+  transform: translate(-50%, -59%);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -87,4 +191,63 @@ nav li {
   height: auto;
   object-fit: contain;
   margin-bottom: 4rem;
+}
+
+.page-content {
+  padding: 0 1rem;
+  grid-area: content;
+}
+
+.page-content .container {
+  background-color: #192847; /* light neutral colour, adjust as you like */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding: 2rem 0;
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+h3.callout {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  color: orange;
+  font-size: 3rem;
+}
+
+h3.c1 {
+  text-align: left;
+  transition-delay: 0.2s
+}
+
+h3.c2 {
+  text-align: center;
+  transition-delay: 0.6s;
+}
+
+h3.c3 {
+  text-align: right;
+  transition-delay: 1s;
+}
+
+.callout.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
 }
