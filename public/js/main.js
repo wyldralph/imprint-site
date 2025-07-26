@@ -9,4 +9,23 @@
       header.classList.remove("visible");
     }
   });
+  document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll("h3.callout").forEach((el) => {
+            el.classList.add("visible");
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.3
+      // adjust based on how much should be visible
+    });
+    const triggerSection = document.querySelector(".callout-section");
+    if (triggerSection) {
+      observer.observe(triggerSection);
+    }
+  });
 })();
