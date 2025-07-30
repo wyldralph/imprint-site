@@ -13,7 +13,7 @@ window.addEventListener('scroll', function () {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.querySelectorAll('h3.callout').forEach(el => {
+          entry.target.querySelectorAll('p.callout').forEach(el => {
             el.classList.add('visible');
           });
           observer.unobserve(entry.target); // Optional: only run once

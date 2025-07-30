@@ -1,23 +1,56 @@
+/* === Base === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+
 }
+
+/* .parallax-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: url('/images/nightsky.jpg') no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+  transform: translateZ(0); forces GPU layer, improves performance
+} */
 
 body {
   margin: 0;
-}
-
-body, h1, h2, h3 {
-  font-family: 'Goldman', cursive, sans-serif;
-  text-align: center;
-  color: white;
-}
-
-p {
   font-family: sans-serif;
-  line-height: 1.7rem;
-  text-align: left;
+  color: white;
+  background: #192847; /* fallback body colour */
+  line-height: 1.6;
   font-size: 1.1rem;
+  background: url('/images/nightsky.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
+
+/* Reset browser defaults */
+p, h1, h2, h3, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* === Typography === */
+
+.goldman {
+  font-family: 'Goldman', cursive, sans-serif; font-family: Goldman;
+}
+
+/* === Layout === */
 
 main {
   display: grid;
@@ -30,6 +63,20 @@ main {
   position: relative;
   overflow: hidden;
 }
+
+.page-content {
+  padding: 0 1rem;
+  grid-area: content;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  background-color: #192847;
+}
+
+/* === Header === */
 
 header {
   grid-area: header;
@@ -52,17 +99,8 @@ header.visible {
   opacity: 1;
 }
 
-header .site-title {
+.header__title {
   font-size: 2.5rem;
-  background: linear-gradient(90deg, orange, pink);
-  text-shadow: 2px 2px 0px #F2A06320, 4px 4px 0px #F2A06320;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
-  color: transparent;
-
-  font-weight: 900;
   margin: 0;
   cursor: default;
   user-select: none;
@@ -103,6 +141,131 @@ nav a.active {
   color: orange;       /* highlight on hover or active */
 }
 
+/* === Hero === */
+
+.hero {
+  grid-area: hero;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  text-align: center;
+  margin: 2em 0;
+}
+
+.text--hero-title {
+    display: inline-block;
+    font-size: 5rem;
+    margin-bottom: 0;
+
+}
+
+p.hero-tag { 
+  font-family: 'Goldman', cursive, sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1em;
+}
+
+.text--hero-title,
+.hero-tag {
+  opacity: 1;
+}
+
+.button {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, orange, pink);
+  color: #192847;
+  border-radius: 1em;
+  box-shadow:
+    2px 2px 0px #F2A06320,
+    4px 4px 0px #F2A06320;
+  padding: 0.25em 0.75em;
+  min-width: 8ch;
+  min-height: 44px;
+  text-align: center;
+  line-height: 1.1;
+  transition: 1s all ease-in-out;
+}
+
+.button:hover,
+.button:active {
+  background: linear-gradient(90deg, darkorange, pink);
+}
+
+&:focus {
+    outline-style: solid;
+    outline-color: transparent;
+    box-shadow: 0 0 0 4px darkorange;
+  }
+
+.duo-container {
+
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.duo-image {
+  width: 100%;
+  max-width: 1920px;
+  height: auto;
+  display: block;
+}
+
+.duo-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, #192847 100%);
+  pointer-events: none;
+}
+
+/* === Callouts === */
+
+.callout {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  font-size: 2rem;
+  font-family: 'Goldman', cursive, sans-serif;
+}
+
+.c1 {
+  padding-top: 3em;
+  text-align: left;
+  transition-delay: 0.2s
+}
+
+.c2 {
+  text-align: center;
+  transition-delay: 0.6s;
+}
+
+.c3 {
+  text-align: right;
+  transition-delay: 1s;
+}
+
+.callout.visible {
+  opacity: 1;
+}
+
+/* === Footer === */
+
+footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* === Animations === */
+
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
@@ -114,98 +277,54 @@ nav a.active {
   }
 }
 
-.hero-title {
-    display: inline-block;
-    font-size: 5rem;
-    margin-bottom: 0;
-    background: linear-gradient(90deg, orange, pink);
-    text-shadow: 3px 3px 0px #F2A06320, 6px 6px 0px #F2A06320;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-    animation: fadeSlideUp 1s ease-out forwards;
-  animation-delay: 0.2s;
-  opacity: 0;
-
-  /* For Firefox */
-  background-clip: text;
-  color: transparent;
-
-  /* Optional: enhance sharpness */
-  font-weight: 900;
-}
-
-h2.hero-tag { 
-  background: linear-gradient(90deg, orange, pink);
-  padding-bottom: 1em;
-  text-shadow: 2px 2px 0px #F2A06320, 4px 4px 0px #F2A06320;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-   animation: fadeSlideUp 1s ease-out forwards;
-  animation-delay: 0.6s;
-  opacity: 0;
-
-  /* For Firefox */
-  background-clip: text;
-  color: transparent;
-}
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-title,
+  html {
+    scroll-behavior: smooth;
+  }
+  .text--hero-title,
   .hero-tag {
+    opacity: 0;
     animation: fadeSlideUp 1s ease-out forwards;
+  }
+
+    .text--hero-title {
+    animation-delay: 0.2s;
+  }
+
+  .hero-tag {
+    animation-delay: 0.6s;
   }
 }
 
-.hero {
-  grid-area: hero;
-  position: relative;
-  height: 150vh;
-  overflow: hidden;
+/* Other */
+
+h1, h2, h3 {
+  font-family: 'Goldman', cursive, sans-serif;
+  color: white;
 }
 
-.parallax-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background: url('/images/nightsky.jpg') no-repeat center center;
-  background-size: cover;
-  z-index: -1;
-  transform: translateZ(0); /* forces GPU layer, improves performance */
+
+.text--gradient {
+  background: linear-gradient(90deg, orange, pink);
+  text-shadow: 2px 2px 0px #F2A06320, 4px 4px 0px #F2A06320;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  background-clip: text;
+  color: transparent;
+
+  font-weight: 900;
 }
 
-.duo-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -59%);
-  display: flex;
-  justify-content: center;
-  width: 100%;
+page-content {
+  font-family: sans-serif;
+  line-height: 1.7rem;
+  text-align: left;
+  font-size: 1.1rem;
+  color: white;
 }
 
-.duo-image {
-  width: 100%;
-  max-width: 1920px;
-  height: auto;
-  object-fit: contain;
-  margin-bottom: 4rem;
-}
-
-.page-content {
-  padding: 0 1rem;
-  grid-area: content;
-}
-
-.page-content .container {
-  background-color: #192847; /* light neutral colour, adjust as you like */
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-  padding: 2rem 0;
-}
 
 @media (max-width: 400px) {
   .container {
@@ -214,40 +333,4 @@ h2.hero-tag {
   }
 }
 
-h3.callout {
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  color: orange;
-  font-size: 3rem;
-}
 
-h3.c1 {
-  text-align: left;
-  transition-delay: 0.2s
-}
-
-h3.c2 {
-  text-align: center;
-  transition-delay: 0.6s;
-}
-
-h3.c3 {
-  text-align: right;
-  transition-delay: 1s;
-}
-
-.callout.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-
-footer {
-  grid-area: footer;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1rem;
-}
