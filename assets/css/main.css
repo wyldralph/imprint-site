@@ -30,8 +30,7 @@ body {
   background: #192847; /* fallback body colour */
   line-height: 1.6;
   font-size: 1.1rem;
-  background: url('/images/nightsky.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: url('/images/nightsky.jpg') repeat center center;
 }
 
 /* Reset browser defaults */
